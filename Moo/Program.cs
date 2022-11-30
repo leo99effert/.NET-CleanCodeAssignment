@@ -20,14 +20,14 @@
                 string guess = Console.ReadLine();
 
                 int nGuess = 1;
-                string bbcc = checkBC(goal, guess);
+                string bbcc = CalculateBullsAndCows(goal, guess);
                 Console.WriteLine(bbcc + "\n");
                 while (bbcc != "BBBB,")
                 {
                     nGuess++;
                     guess = Console.ReadLine();
                     Console.WriteLine(guess + "\n");
-                    bbcc = checkBC(goal, guess);
+                    bbcc = CalculateBullsAndCows(goal, guess);
                     Console.WriteLine(bbcc + "\n");
                 }
                 StreamWriter output = new StreamWriter("result.txt", append: true);
@@ -59,15 +59,15 @@
             return secretSequence;
         }
 
-        static string checkBC(string goal, string guess)
+        public static string CalculateBullsAndCows(string secretSequence, string guess)
         {
-            int cows = 0, bulls = 0;
-            guess += "    ";     // if player entered less than 4 chars
+            int bulls = 0;
+            int cows = 0;
             for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 4 && j < guess.Length; j++)
                 {
-                    if (goal[i] == guess[j])
+                    if (secretSequence[i] == guess[j])
                     {
                         if (i == j)
                         {
@@ -80,7 +80,7 @@
                     }
                 }
             }
-            return "BBBB".Substring(0, bulls) + "," + "CCCC".Substring(0, cows);
+            return string.Concat("BBBB".AsSpan(0, bulls), ",", "CCCC".AsSpan(0, cows));
         }
 
 
