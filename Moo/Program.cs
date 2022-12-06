@@ -84,7 +84,7 @@
         }
 
 
-        static void showTopList()
+        public static void showTopList()
         {
             StreamReader input = new StreamReader("result.txt");
             List<PlayerData> results = new List<PlayerData>();
@@ -117,7 +117,7 @@
         }
     }
 
-    class PlayerData
+    public class PlayerData
     {
         public string Name { get; private set; }
         public int NGames { get; private set; }
