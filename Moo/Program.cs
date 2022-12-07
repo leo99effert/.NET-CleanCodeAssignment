@@ -1,4 +1,6 @@
-﻿namespace MooGame
+﻿using Moo;
+
+namespace MooGame
 {
     public class MainClass
     {
@@ -135,44 +137,6 @@
                 consoleOutput += string.Format("{0,-9}{1,5:D}{2,9:F2}\n", p.Name, p.GamesPlayed, p.Average());
             }
             return consoleOutput;
-        }
-    }
-
-    public class PlayerData
-    {
-        public string Name { get; private set; }
-        public int GamesPlayed { get; private set; }
-        public int TotalGuesses { get; set; }
-
-
-        public PlayerData(string name, int guesses)
-        {
-            this.Name = name;
-            GamesPlayed = 1;
-            TotalGuesses = guesses;
-        }
-
-        public void Update(int guesses)
-        {
-            TotalGuesses += guesses;
-            GamesPlayed++;
-        }
-
-        public double Average()
-        {
-            return (double)TotalGuesses / GamesPlayed;
-        }
-
-
-        public override bool Equals(Object p)
-        {
-            return Name.Equals(((PlayerData)p).Name);
-        }
-
-
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
         }
     }
 }
