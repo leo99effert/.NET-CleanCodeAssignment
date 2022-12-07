@@ -1,4 +1,4 @@
-﻿using MooGame;
+﻿using Moo;
 namespace Test
 {
     [TestClass]
@@ -7,17 +7,17 @@ namespace Test
         [TestMethod]
         public void OnlyNumbers()
         {
-            Assert.IsTrue(MainClass.CreateSecretSequence().All(char.IsDigit));
+            Assert.IsTrue(GameCalculator.CreateSecretSequence().All(char.IsDigit));
         }
         [TestMethod]
         public void LengthIsFour()
         {
-            Assert.AreEqual(4, MainClass.CreateSecretSequence().Length);
+            Assert.AreEqual(4, GameCalculator.CreateSecretSequence().Length);
         }
         [TestMethod]
         public void AllCharsAreUnique()
         {
-            string secretSequence = MainClass.CreateSecretSequence();
+            string secretSequence = GameCalculator.CreateSecretSequence();
             int uniqueChars = secretSequence.Length;
             for (int i = 0; i < secretSequence.Length; i++)
             {
