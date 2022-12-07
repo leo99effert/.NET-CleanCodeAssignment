@@ -13,23 +13,23 @@ namespace MooGame
 
             while (playOn)
             {
-                string goal = GameCalculator.CreateSecretSequence();
+                string secretSequence = GameCalculator.CreateSecretSequence();
 
 
                 Console.WriteLine("New game:\n");
                 //comment out or remove next line to play real games!
-                Console.WriteLine("For practice, number is: " + goal + "\n");
+                Console.WriteLine("For practice, number is: " + secretSequence + "\n");
                 string guess = Console.ReadLine();
 
                 int nGuess = 1;
-                string bbcc = GameCalculator.GetBullsAndCows(goal, guess);
+                string bbcc = GameCalculator.GetBullsAndCows(secretSequence, guess);
                 Console.WriteLine(bbcc + "\n");
                 while (bbcc != "BBBB,")
                 {
                     nGuess++;
                     guess = Console.ReadLine();
                     Console.WriteLine(guess + "\n");
-                    bbcc = GameCalculator.GetBullsAndCows(goal, guess);
+                    bbcc = GameCalculator.GetBullsAndCows(secretSequence, guess);
                     Console.WriteLine(bbcc + "\n");
                 }
                 StreamWriter output = new StreamWriter("result.txt", append: true);
