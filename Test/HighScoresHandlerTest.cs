@@ -1,5 +1,4 @@
 ﻿using Moo;
-using MooGame;
 
 namespace Test
 {
@@ -41,13 +40,13 @@ namespace Test
         [TestMethod]
         public void DataEntriesToPlayerDatas()
         {
-            CollectionAssert.AreEqual(playerDatasMock, MainClass.ConvertToPlayerData(dataEntriesMock));
+            CollectionAssert.AreEqual(playerDatasMock, HighScoresHandler.ConvertToPlayerData(dataEntriesMock));
         }
 
         [TestMethod]
         public void PlayerDatasToConsoleString()
         {
-            Assert.AreEqual(consoleStringMock, MainClass.CreateConsoleString(playerDatasMock));
+            Assert.AreEqual(consoleStringMock, HighScoresHandler.CreateConsoleString(playerDatasMock));
         }
     }
 }
