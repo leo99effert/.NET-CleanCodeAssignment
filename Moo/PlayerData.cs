@@ -7,7 +7,7 @@
         public int TotalGuesses { get; set; }
 
 
-        public PlayerData(string name, int guesses)
+        public PlayerData(string name, int guesses = 0)
         {
             this.Name = name;
             GamesPlayed = 1;

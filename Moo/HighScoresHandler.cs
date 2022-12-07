@@ -2,6 +2,14 @@
 {
     public class HighScoresHandler
     {
+
+        public static void WriteToTextFile(PlayerData player)
+        {
+            StreamWriter output = new StreamWriter("result.txt", append: true);
+            output.WriteLine(player.Name + "#&#" + player.TotalGuesses);
+            output.Close();
+        }
+
         public static List<string> ReadTextFile()
         {
             StreamReader textFile = new StreamReader("result.txt");

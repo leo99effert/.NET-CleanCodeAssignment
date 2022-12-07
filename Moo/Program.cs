@@ -7,11 +7,11 @@ namespace MooGame
         public static void Main(string[] args)
         {
 
-            bool playOn = true;
             Console.WriteLine("Enter your user name:\n");
-            string name = Console.ReadLine();
+            PlayerData playerData = new(Console.ReadLine());
 
-            while (playOn)
+            bool continuePlaying = true;
+            while (continuePlaying)
             {
                 string secretSequence = GameCalculator.CreateSecretSequence();
 
@@ -21,30 +21,29 @@ namespace MooGame
                 Console.WriteLine("For practice, number is: " + secretSequence + "\n");
                 string guess = Console.ReadLine();
 
-                int nGuess = 1;
-                string bbcc = GameCalculator.GetBullsAndCows(secretSequence, guess);
-                Console.WriteLine(bbcc + "\n");
-                while (bbcc != "BBBB,")
+                playerData.TotalGuesses++;
+                string bullsAndCows = GameCalculator.GetBullsAndCows(secretSequence, guess);
+                Console.WriteLine(bullsAndCows + "\n");
+                while (bullsAndCows != "BBBB,")
                 {
-                    nGuess++;
                     guess = Console.ReadLine();
+                    playerData.TotalGuesses++;
                     Console.WriteLine(guess + "\n");
-                    bbcc = GameCalculator.GetBullsAndCows(secretSequence, guess);
-                    Console.WriteLine(bbcc + "\n");
+                    bullsAndCows = GameCalculator.GetBullsAndCows(secretSequence, guess);
+                    Console.WriteLine(bullsAndCows + "\n");
                 }
-                StreamWriter output = new StreamWriter("result.txt", append: true);
-                output.WriteLine(name + "#&#" + nGuess);
-                output.Close();
 
+                Console.WriteLine("Correct, it took " + playerData.TotalGuesses + " guesses\n");
+                HighScoresHandler.WriteToTextFile(playerData);
                 List<string> dataEntries = HighScoresHandler.ReadTextFile();
                 List<PlayerData> playerDatas = HighScoresHandler.ConvertToPlayerData(dataEntries);
                 Console.WriteLine(HighScoresHandler.CreateConsoleString(playerDatas));
 
-                Console.WriteLine("Correct, it took " + nGuess + " guesses\nContinue?");
+                Console.WriteLine("Continue?");
                 string answer = Console.ReadLine();
                 if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
                 {
-                    playOn = false;
+                    continuePlaying = false;
                 }
             }
         }
