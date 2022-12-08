@@ -4,6 +4,8 @@
     {
         public PlayerData Player { get; set; }
         public string SecretSequence { get; set; } = "";
+        public ICalculator Calculator { get; set; } = new MooCalculator();
+
         public void CreatePlayer()
         {
             Console.WriteLine("Enter your user name:\n");
@@ -12,7 +14,7 @@
         public void StartNewGame()
         {
             Console.WriteLine("New game:\n");
-            SecretSequence = GameCalculator.CreateSecretSequence();
+            SecretSequence = Calculator.CreateSecretSequence();
             //comment out or remove next line to play real games!
             Console.WriteLine("For practice, number is: " + SecretSequence + "\n");
         }
@@ -25,7 +27,7 @@
                 string guess = Console.ReadLine();
                 Player.TotalGuesses++;
                 Console.WriteLine(guess + "\n");
-                currentBullsAndCows = GameCalculator.GetResult(SecretSequence, guess);
+                currentBullsAndCows = Calculator.GetResult(SecretSequence, guess);
                 Console.WriteLine(currentBullsAndCows + "\n");
             }
         }

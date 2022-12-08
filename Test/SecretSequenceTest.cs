@@ -4,20 +4,21 @@ namespace Test
     [TestClass]
     public class SecretSequenceTest
     {
+        private readonly ICalculator _calculator = new MooCalculator();
         [TestMethod]
         public void OnlyNumbers()
         {
-            Assert.IsTrue(GameCalculator.CreateSecretSequence().All(char.IsDigit));
+            Assert.IsTrue(_calculator.CreateSecretSequence().All(char.IsDigit));
         }
         [TestMethod]
         public void LengthIsFour()
         {
-            Assert.AreEqual(4, GameCalculator.CreateSecretSequence().Length);
+            Assert.AreEqual(4, _calculator.CreateSecretSequence().Length);
         }
         [TestMethod]
         public void AllCharsAreUnique()
         {
-            string secretSequence = GameCalculator.CreateSecretSequence();
+            string secretSequence = _calculator.CreateSecretSequence();
             int uniqueChars = secretSequence.Length;
             for (int i = 0; i < secretSequence.Length; i++)
             {
