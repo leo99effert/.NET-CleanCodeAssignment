@@ -19,7 +19,7 @@
             return secretSequence;
         }
 
-        public static string GetBullsAndCows(string secretSequence, string guess)
+        public static string GetResult(string secretSequence, string guess)
         {
             int bulls = 0;
             int cows = 0;
