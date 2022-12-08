@@ -3,12 +3,20 @@
     public class Game
     {
         public PlayerData Player { get; set; }
+        public string SecretSequence { get; set; } = "";
         public void CreatePlayer()
         {
             Console.WriteLine("Enter your user name:\n");
             Player = new(Console.ReadLine());
         }
-        public void RunGameLoop(string secretSequence)
+        public void StartNewGame()
+        {
+            Console.WriteLine("New game:\n");
+            SecretSequence = GameCalculator.CreateSecretSequence();
+            //comment out or remove next line to play real games!
+            Console.WriteLine("For practice, number is: " + SecretSequence + "\n");
+        }
+        public void RunGameLoop()
         {
             string currentBullsAndCows = ",";
             Player.TotalGuesses = 0;
@@ -17,7 +25,7 @@
                 string guess = Console.ReadLine();
                 Player.TotalGuesses++;
                 Console.WriteLine(guess + "\n");
-                currentBullsAndCows = GameCalculator.GetBullsAndCows(secretSequence, guess);
+                currentBullsAndCows = GameCalculator.GetResult(SecretSequence, guess);
                 Console.WriteLine(currentBullsAndCows + "\n");
             }
         }

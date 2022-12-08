@@ -6,12 +6,8 @@ game.CreatePlayer();
 bool continuePlaying = true;
 while (continuePlaying)
 {
-    string secretSequence = GameCalculator.CreateSecretSequence();
-    Console.WriteLine("New game:\n");
-    //comment out or remove next line to play real games!
-    Console.WriteLine("For practice, number is: " + secretSequence + "\n");
-
-    game.RunGameLoop(secretSequence);
+    game.StartNewGame();
+    game.RunGameLoop();
     game.EndAndSave();
     continuePlaying = game.AskForNewGame();
 }
