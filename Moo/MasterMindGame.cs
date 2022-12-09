@@ -1,8 +1,8 @@
 ﻿namespace Moo
 {
-    public class MooGame : Game, IGuessingGame
+    internal class MasterMindGame : Game, IGuessingGame
     {
-        public ICalculator Calculator { get; set; } = new MooCalculator();
+        public ICalculator Calculator { get; set; } = new MasterMindCalculator();
         public void StartNewGame()
         {
             Console.WriteLine("New game:\n");
@@ -23,5 +23,6 @@
                 Console.WriteLine(currentBullsAndCows + "\n");
             }
         }
+
     }
 }
