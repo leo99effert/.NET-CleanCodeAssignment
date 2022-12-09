@@ -1,8 +1,8 @@
 ﻿namespace Moo
 {
-    public class GameCalculator
+    public class MooCalculator : ICalculator
     {
-        public static string CreateSecretSequence()
+        public string CreateSecretSequence()
         {
             string secretSequence = "";
             Random NumberGenerator = new();
@@ -19,7 +19,7 @@
             return secretSequence;
         }
 
-        public static string GetResult(string secretSequence, string guess)
+        public string GetResult(string secretSequence, string guess)
         {
             int bulls = 0;
             int cows = 0;
