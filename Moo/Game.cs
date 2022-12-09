@@ -1,6 +1,6 @@
 ﻿namespace Moo
 {
-    public class Game : IGuessingGame
+    public class Game
     {
         public PlayerData Player { get; set; }
         public string SecretSequence { get; set; } = "";
@@ -10,26 +10,6 @@
         {
             Console.WriteLine("Enter your user name:\n");
             Player = new(Console.ReadLine());
-        }
-        public void StartNewGame()
-        {
-            Console.WriteLine("New game:\n");
-            SecretSequence = Calculator.CreateSecretSequence();
-            //comment out or remove next line to play real games!
-            Console.WriteLine("For practice, number is: " + SecretSequence + "\n");
-        }
-        public void RunGameLoop()
-        {
-            string currentBullsAndCows = ",";
-            Player.TotalGuesses = 0;
-            while (currentBullsAndCows != "BBBB,")
-            {
-                string guess = Console.ReadLine();
-                Player.TotalGuesses++;
-                Console.WriteLine(guess + "\n");
-                currentBullsAndCows = Calculator.GetResult(SecretSequence, guess);
-                Console.WriteLine(currentBullsAndCows + "\n");
-            }
         }
         public void EndAndSave()
         {

@@ -1,6 +1,6 @@
 ﻿using Moo;
 
-Game game = new();
+MooGame game = new();
 game.CreatePlayer();
 
 bool continuePlaying = true;
