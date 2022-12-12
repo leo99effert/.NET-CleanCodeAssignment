@@ -1,10 +1,9 @@
 ﻿namespace Moo
 {
-    public class Game
+    public class Game : IGame
     {
         public PlayerData Player { get; set; }
         public string SecretSequence { get; set; } = "";
-        public ICalculator Calculator { get; set; } = new MooCalculator();
 
         public void CreatePlayer()
         {

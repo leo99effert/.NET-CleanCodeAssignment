@@ -2,6 +2,7 @@
 {
     public class MooGame : Game, IGuessingGame
     {
+        public ICalculator Calculator { get; set; } = new MooCalculator();
         public void StartNewGame()
         {
             Console.WriteLine("New game:\n");
