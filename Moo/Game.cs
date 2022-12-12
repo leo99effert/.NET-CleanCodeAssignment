@@ -1,6 +1,6 @@
 ﻿namespace Moo
 {
-    public class Game
+    public class Game : IGame
     {
         public PlayerData Player { get; set; }
         public string SecretSequence { get; set; } = "";
