@@ -18,20 +18,15 @@ namespace Moo
 
         public string GetResult(string secretSequence, string guess)
         {
-            guess += "    ";
-            guess = guess.Substring(0, 4);
+            guess = (guess + "    ").Substring(0, 4).ToUpper();
             char[] secret = secretSequence.ToCharArray();
             string result = "";
             for (int i = 0; i < guess.Length; i++)
             {
-                if (guess[i] == secretSequence[i])
+                if (guess[i] == secret[i])
                 {
                     result += "B";
-                    secret[i] = 'X';
-                }
-                else
-                {
-                    result += " ";
+                    secret[i] = 'X'; // To avoid being counted as Cow
                 }
             }
             result += ",";
@@ -42,17 +37,14 @@ namespace Moo
                 {
                     int thisCharInSecret = 0;
                     int thisCharInGuess = 0;
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < secret.Length; j++)
                     {
                         if (secret[j] == guess[i])
                         {
                             thisCharInSecret++;
                             checkedColors += guess[i];
                         }
-                    }
-                    for (int j = 0; j < guess.Length; j++)
-                    {
-                        if (guess[i] == guess[j] && secret[j] != 'X')
+                        if (guess[j] == guess[i] && secret[j] != 'X') // Count the char without counting the Bulls
                         {
                             thisCharInGuess++;
                         }
@@ -65,8 +57,8 @@ namespace Moo
                     }
                 }
             }
-            string TrimedResult = Regex.Replace(result, "\\s+", "");
-            return TrimedResult;
+            result = Regex.Replace(result, "\\s+", "");
+            return result;
         }
     }
 }

@@ -5,7 +5,15 @@
         public ICalculator Calculator { get; set; } = new MasterMindCalculator();
         public void StartNewGame()
         {
-            Console.WriteLine("New game:\n");
+            Console.WriteLine("B/b = Blue\n" +
+                              "G/g = Green\n" +
+                              "R/r = Red\n" +
+                              "Y/y = Yelow\n" +
+                              "O/o = Orange\n" +
+                              "P/p = Pink\n" +
+                              "W/w = White\n" +
+                              "S/s = Silver\n" +
+                              "New game:\n");
             SecretSequence = Calculator.CreateSecretSequence();
             //comment out or remove next line to play real games!
             Console.WriteLine("For practice, number is: " + SecretSequence + "\n");
