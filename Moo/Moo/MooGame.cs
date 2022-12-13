@@ -1,14 +1,17 @@
-﻿namespace Moo
+﻿using Moo.Interfaces;
+
+namespace Moo
 {
     public class MooGame : Game, IGuessingGame
     {
         public ICalculator Calculator { get; set; } = new MooCalculator();
+        public MooGame(IUserInterface userInterface) : base(userInterface) { }
         public void StartNewGame()
         {
-            Console.WriteLine("New game:\n");
+            UserInterface.Output("New game:\n");
             SecretSequence = Calculator.CreateSecretSequence();
             //comment out or remove next line to play real games!
-            Console.WriteLine("For practice, number is: " + SecretSequence + "\n");
+            UserInterface.Output("For practice, number is: " + SecretSequence + "\n");
         }
         public void RunGameLoop()
         {
@@ -16,11 +19,11 @@
             Player.TotalGuesses = 0;
             while (currentBullsAndCows != "BBBB,")
             {
-                string guess = Console.ReadLine();
+                string guess = UserInterface.Input();
                 Player.TotalGuesses++;
-                Console.WriteLine(guess + "\n");
+                UserInterface.Output(guess + "\n");
                 currentBullsAndCows = Calculator.GetResult(SecretSequence, guess);
-                Console.WriteLine(currentBullsAndCows + "\n");
+                UserInterface.Output(currentBullsAndCows + "\n");
             }
         }
     }

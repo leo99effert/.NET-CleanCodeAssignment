@@ -1,15 +1,18 @@
 ﻿using Moo;
+using Moo.Interfaces;
+
+IUserInterface userInterface = new ConsoleHandler();
 
 // Added functionality for VG assignment below
 string gameToPlay = "";
-while (gameToPlay.Contains("moo") is false && gameToPlay.Contains("mastermind") is false)
+while (gameToPlay is not "moo" && gameToPlay is not "mastermind")
 {
-    Console.WriteLine("What game do you want to play?\nCurrently available games: Moo and MasterMind");
-    gameToPlay = Console.ReadLine().ToLower();
+    userInterface.Output("What game do you want to play?\nCurrently available games: Moo and MasterMind");
+    gameToPlay = userInterface.Input().ToLower();
 }
 // Added functionality for VG assignment above
 
-IGuessingGame game = Factory.CreateGame(gameToPlay);
+IGuessingGame game = Factory.CreateGame(gameToPlay, userInterface);
 game.CreatePlayer();
 
 bool continuePlaying = true;

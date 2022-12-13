@@ -1,16 +1,18 @@
-﻿namespace Moo
+﻿using Moo.Interfaces;
+
+namespace Moo
 {
     public class Factory
     {
-        public static IGuessingGame CreateGame(string gameChosenByPlayer)
+        public static IGuessingGame CreateGame(string gameChosenByPlayer, IUserInterface userInterface)
         {
-            if (gameChosenByPlayer.Contains("moo"))
+            if (gameChosenByPlayer is "moo")
             {
-                return new MooGame();
+                return new MooGame(userInterface);
             }
-            if (gameChosenByPlayer.Contains("mastermind"))
+            if (gameChosenByPlayer is "mastermind")
             {
-                return new MasterMindGame();
+                return new MasterMindGame(userInterface);
             }
             throw new Exception("Game not found");
         }
