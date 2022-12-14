@@ -2,56 +2,50 @@
 {
     public class HighScoresHandler
     {
+        public List<PlayerData> PlayerDatas { get; set; } = new();
 
-        public static void WriteToTextFile(PlayerData player)
+        public void WriteToTextFile(PlayerData player)
         {
-            StreamWriter output = new StreamWriter("result.txt", append: true);
+            StreamWriter output = new("result.txt", append: true);
             output.WriteLine(player.Name + "#&#" + player.TotalGuesses);
             output.Close();
         }
 
-        public static List<string> ReadTextFile()
+        public void ReadTextFile()
         {
-            StreamReader textFile = new StreamReader("result.txt");
-            List<string> playerDataEntries = new();
+            StreamReader textFile = new("result.txt");
             string newLine;
             while ((newLine = textFile.ReadLine()) != null)
             {
-                playerDataEntries.Add(newLine);
+                ReadLine(newLine);
             }
             textFile.Close();
-            return playerDataEntries;
+            PlayerDatas = PlayerDatas.OrderBy(p => p.Average()).ToList();
         }
 
-        public static List<PlayerData> ConvertToPlayerData(List<string> dataEntries)
+        public void ReadLine(string newLine)
         {
-            List<PlayerData> playerDatas = new List<PlayerData>();
-            foreach (string entry in dataEntries)
+            string[] nameAndScore = newLine.Split(new string[] { "#&#" }, StringSplitOptions.None);
+            string name = nameAndScore[0];
+            int guesses = Convert.ToInt32(nameAndScore[1]);
+            PlayerData playerData = new(name, guesses);
+            int pos = PlayerDatas.IndexOf(playerData);
+            if (pos < 0)
             {
-                string[] nameAndScore = entry.Split(new string[] { "#&#" }, StringSplitOptions.None);
-                string name = nameAndScore[0];
-                int guesses = Convert.ToInt32(nameAndScore[1]);
-                PlayerData playerData = new PlayerData(name, guesses);
-                int pos = playerDatas.IndexOf(playerData);
-                if (pos < 0)
-                {
-                    playerDatas.Add(playerData);
-                }
-                else
-                {
-                    playerDatas[pos].Update(guesses);
-                }
+                PlayerDatas.Add(playerData);
             }
-            List<PlayerData> inOrderPlayerData = playerDatas.OrderBy(p => p.Average()).ToList();
-            return inOrderPlayerData;
+            else
+            {
+                PlayerDatas[pos].Update(guesses);
+            }
         }
 
-        public static string CreateConsoleString(List<PlayerData> playerDatas)
+        public string CreateConsoleString()
         {
             string consoleOutput = "Player   games average\n";
-            foreach (PlayerData p in playerDatas)
+            foreach (PlayerData playerData in PlayerDatas)
             {
-                consoleOutput += string.Format("{0,-9}{1,5:D}{2,9:F2}\n", p.Name, p.GamesPlayed, p.Average());
+                consoleOutput += string.Format("{0,-9}{1,5:D}{2,9:F2}\n", playerData.Name, playerData.GamesPlayed, playerData.Average());
             }
             return consoleOutput;
         }
