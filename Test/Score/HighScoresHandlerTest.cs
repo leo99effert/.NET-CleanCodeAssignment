@@ -5,18 +5,9 @@ namespace Test
     [TestClass]
     public class HighScoresHandlerTest
     {
-        private List<string> dataEntriesMock = new List<string>()
-        {
-            "sheldon#&#10",
-            "leonard#&#9",
-            "penny#&#1",
-            "raj#&#2",
-            "howard#&#3",
-            "sheldon#&#20",
-            "leonard#&#8",
-            "sheldon#&#30"
-        };
-        private List<PlayerData> playerDatasMock = new List<PlayerData>()
+        public HighScoresHandler HighScoresHandler { get; set; } = new();
+
+        private readonly List<PlayerData> _playerDatasMock = new()
         {
             new PlayerData("penny", 1),
             new PlayerData("raj", 2),
@@ -24,7 +15,7 @@ namespace Test
             new PlayerData("leonard", 17),
             new PlayerData("sheldon", 60)
         };
-        private string consoleStringMock = "Player   games average\n" +
+        private readonly string _consoleStringMock = "Player   games average\n" +
                                            "penny        1     1,00\n" +
                                            "raj          1     2,00\n" +
                                            "howard       1     3,00\n" +
@@ -34,19 +25,15 @@ namespace Test
         [TestInitialize]
         public void Init()
         {
-            playerDatasMock[3].GamesPlayed = 2;
-            playerDatasMock[4].GamesPlayed = 3;
-        }
-        [TestMethod]
-        public void DataEntriesToPlayerDatas()
-        {
-            CollectionAssert.AreEqual(playerDatasMock, HighScoresHandler.ConvertToPlayerData(dataEntriesMock));
+            HighScoresHandler.PlayerDatas = _playerDatasMock;
+            _playerDatasMock[3].GamesPlayed = 2;
+            _playerDatasMock[4].GamesPlayed = 3;
         }
 
         [TestMethod]
         public void PlayerDatasToConsoleString()
         {
-            Assert.AreEqual(consoleStringMock, HighScoresHandler.CreateConsoleString(playerDatasMock));
+            Assert.AreEqual(_consoleStringMock, HighScoresHandler.CreateConsoleString());
         }
     }
 }
