@@ -4,17 +4,33 @@ namespace Moo
 {
     public class Factory
     {
-        public static IGuessingGame CreateGame(string gameChosenByPlayer, IUserInterface userInterface)
+        public IUserInterface UserInterface { get; set; }
+        public Factory(IUserInterface userInterface)
         {
+            UserInterface = userInterface;
+        }
+        public IGuessingGame CreateGame()
+        {
+            string gameChosenByPlayer = PickGame();
             if (gameChosenByPlayer is "moo")
             {
-                return new MooGame(userInterface);
+                return new MooGame(UserInterface);
             }
             if (gameChosenByPlayer is "mastermind")
             {
-                return new MasterMindGame(userInterface);
+                return new MasterMindGame(UserInterface);
             }
             throw new Exception("Game not found");
+        }
+        public string PickGame()
+        {
+            string gameToPlay = "";
+            while (gameToPlay is not "moo" && gameToPlay is not "mastermind")
+            {
+                UserInterface.Output("What game do you want to play?\nCurrently available games: Moo and MasterMind");
+                gameToPlay = UserInterface.Input().ToLower();
+            }
+            return gameToPlay;
         }
     }
 }
