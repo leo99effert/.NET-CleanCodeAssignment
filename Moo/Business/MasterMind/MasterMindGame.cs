@@ -8,6 +8,7 @@ namespace Moo
         public MasterMindGame(IUserInterface userInterface) : base(userInterface) { }
         public void StartNewGame()
         {
+            Calculator.CreateSecretSequence();
             UserInterface.Output("B/b = Blue\n" +
                                  "G/g = Green\n" +
                                  "R/r = Red\n" +
@@ -17,9 +18,8 @@ namespace Moo
                                  "W/w = White\n" +
                                  "S/s = Silver\n" +
                                  "New game:\n");
-            SecretSequence = Calculator.CreateSecretSequence();
             //comment out or remove next line to play real games!
-            UserInterface.Output("For practice, number is: " + SecretSequence + "\n");
+            UserInterface.Output("For practice, number is: " + Calculator.SecretSequence + "\n");
         }
         public void RunGameLoop()
         {
@@ -27,10 +27,10 @@ namespace Moo
             Player.TotalGuesses = 0;
             while (currentBullsAndCows != "BBBB,")
             {
-                string guess = UserInterface.Input();
+                Calculator.Guess = UserInterface.Input();
                 Player.TotalGuesses++;
-                UserInterface.Output(guess + "\n");
-                currentBullsAndCows = Calculator.GetResult(SecretSequence, guess);
+                UserInterface.Output(Calculator.Guess + "\n");
+                currentBullsAndCows = Calculator.GetResult();
                 UserInterface.Output(currentBullsAndCows + "\n");
             }
         }

@@ -5,7 +5,6 @@ namespace Moo
     public interface IGame
     {
         public PlayerData Player { get; set; }
-        public string SecretSequence { get; set; }
         public IUserInterface UserInterface { get; set; }
         public void CreatePlayer();
         public void EndAndSave();

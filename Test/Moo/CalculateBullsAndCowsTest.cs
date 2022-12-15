@@ -7,47 +7,52 @@ namespace Test
     public class CalculateBullsAndCowsTest
     {
         private readonly ICalculator _calculator = new MooCalculator();
+        [TestInitialize]
+        public void Init()
+        {
+            _calculator.CreateSecretSequence();
+        }
         [TestMethod]
         public void WhiteSpaceInput()
         {
-            string testInput = "    ";
+            _calculator.Guess = "    ";
             Regex regex = new(@"^B{0,4},C{0,4}$");
-            StringAssert.Matches(_calculator.GetResult(_calculator.CreateSecretSequence(), testInput), regex);
+            StringAssert.Matches(_calculator.GetResult(), regex);
         }
         [TestMethod]
         public void EmptyInput()
         {
-            string testInput = "";
+            _calculator.Guess = "";
             Regex regex = new(@"^B{0,4},C{0,4}$");
-            StringAssert.Matches(_calculator.GetResult(_calculator.CreateSecretSequence(), testInput), regex);
+            StringAssert.Matches(_calculator.GetResult(), regex);
         }
         [TestMethod]
         public void LongInput()
         {
-            string testInput = "12345";
+            _calculator.Guess = "12345";
             Regex regex = new(@"^B{0,4},C{0,4}$");
-            StringAssert.Matches(_calculator.GetResult(_calculator.CreateSecretSequence(), testInput), regex);
+            StringAssert.Matches(_calculator.GetResult(), regex);
         }
         [TestMethod]
         public void ShortInput()
         {
-            string testInput = "123";
+            _calculator.Guess = "123";
             Regex regex = new(@"^B{0,4},C{0,4}$");
-            StringAssert.Matches(_calculator.GetResult(_calculator.CreateSecretSequence(), testInput), regex);
+            StringAssert.Matches(_calculator.GetResult(), regex);
         }
         [TestMethod]
         public void NotUniqueInput()
         {
-            string testInput = "3333";
+            _calculator.Guess = "3333";
             Regex regex = new(@"^B{0,4},C{0,4}$");
-            StringAssert.Matches(_calculator.GetResult(_calculator.CreateSecretSequence(), testInput), regex);
+            StringAssert.Matches(_calculator.GetResult(), regex);
         }
         [TestMethod]
         public void LetterInput()
         {
-            string testInput = "AaBb";
+            _calculator.Guess = "AaBb";
             Regex regex = new(@"^B{0,4},C{0,4}$");
-            StringAssert.Matches(_calculator.GetResult(_calculator.CreateSecretSequence(), testInput), regex);
+            StringAssert.Matches(_calculator.GetResult(), regex);
         }
     }
 }

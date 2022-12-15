@@ -2,7 +2,9 @@
 {
     public interface ICalculator
     {
-        public string CreateSecretSequence();
-        public string GetResult(string secretSequnce, string guess);
+        public string SecretSequence { get; set; }
+        public string Guess { get; set; }
+        public void CreateSecretSequence();
+        public string GetResult();
     }
 }

@@ -5,7 +5,6 @@ namespace Moo
     public class Game : IGame
     {
         public PlayerData Player { get; set; }
-        public string SecretSequence { get; set; } = "";
         public IUserInterface UserInterface { get; set; }
 
         public Game(IUserInterface userInterface)

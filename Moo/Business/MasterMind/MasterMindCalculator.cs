@@ -2,28 +2,31 @@
 
 namespace Moo
 {
-    internal class MasterMindCalculator : ICalculator
+    public class MasterMindCalculator : ICalculator
     {
-        public string CreateSecretSequence()
+        public string SecretSequence { get; set; }
+        public string Guess { get; set; }
+
+        public void CreateSecretSequence()
         {
-            string secretSequence = "";
+            string newSecretSequence = "";
             Random NumberGenerator = new();
             for (int i = 0; i < 4; i++)
             {
                 int random = NumberGenerator.Next(8);
-                secretSequence += (Colors)random;
+                newSecretSequence += (Colors)random;
             }
-            return secretSequence;
+            SecretSequence = newSecretSequence;
         }
 
-        public string GetResult(string secretSequence, string guess)
+        public string GetResult()
         {
-            guess = (guess + "    ").Substring(0, 4).ToUpper();
-            char[] secret = secretSequence.ToCharArray();
+            Guess = (Guess + "    ").Substring(0, 4).ToUpper();
+            char[] secret = SecretSequence.ToCharArray();
             string result = "";
-            for (int i = 0; i < guess.Length; i++)
+            for (int i = 0; i < Guess.Length; i++)
             {
-                if (guess[i] == secret[i])
+                if (Guess[i] == secret[i])
                 {
                     result += "B";
                     secret[i] = 'X'; // To avoid being counted as Cow
@@ -31,20 +34,20 @@ namespace Moo
             }
             result += ",";
             string checkedColors = "";
-            for (int i = 0; i < guess.Length; i++)
+            for (int i = 0; i < Guess.Length; i++)
             {
-                if (secret.Contains(guess[i]) && checkedColors.Contains(guess[i]) == false)
+                if (secret.Contains(Guess[i]) && checkedColors.Contains(Guess[i]) == false)
                 {
                     int thisCharInSecret = 0;
                     int thisCharInGuess = 0;
                     for (int j = 0; j < secret.Length; j++)
                     {
-                        if (secret[j] == guess[i])
+                        if (secret[j] == Guess[i])
                         {
                             thisCharInSecret++;
-                            checkedColors += guess[i];
+                            checkedColors += Guess[i];
                         }
-                        if (guess[j] == guess[i] && secret[j] != 'X') // Count the char without counting the Bulls
+                        if (Guess[j] == Guess[i] && secret[j] != 'X') // Count the char without counting the Bulls
                         {
                             thisCharInGuess++;
                         }
