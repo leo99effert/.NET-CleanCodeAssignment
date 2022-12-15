@@ -5,7 +5,7 @@ namespace Moo.Business.Shared
     public class GameFacade
     {
         public IUserInterface UserInterface { get; set; }
-        public IGuessingGame Game { get; set; }
+        public IGame Game { get; set; }
         public GameFacade(IUserInterface userInterface)
         {
             UserInterface = userInterface;

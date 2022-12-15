@@ -9,7 +9,7 @@ namespace Moo
         {
             UserInterface = userInterface;
         }
-        public IGuessingGame CreateGame()
+        public IGame CreateGame()
         {
             string gameChosenByPlayer = PickGame();
             if (gameChosenByPlayer is "moo")
