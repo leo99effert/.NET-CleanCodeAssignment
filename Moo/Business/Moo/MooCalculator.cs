@@ -1,13 +1,10 @@
-﻿using Moo.Interfaces;
-
-namespace Moo
+﻿namespace Moo
 {
-    public class MooGame : Game, ICalculator
+    public class MooCalculator : ICalculator
     {
         public string SecretSequence { get; set; }
         public string Guess { get; set; }
 
-        public MooGame(IUserInterface userInterface) : base(userInterface) { }
         public void CreateSecretSequence()
         {
             string newSecretSequence = "";

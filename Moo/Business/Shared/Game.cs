@@ -8,9 +8,10 @@ namespace Moo
         public IUserInterface UserInterface { get; set; }
         public ICalculator Calculator { get; set; }
 
-        public Game(IUserInterface userInterface)
+        public Game(IUserInterface userInterface, ICalculator calculator)
         {
             UserInterface = userInterface;
+            Calculator = calculator;
         }
         public void CreatePlayer()
         {

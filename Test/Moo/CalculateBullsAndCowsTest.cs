@@ -1,5 +1,4 @@
 ﻿using Moo;
-using Moo.Interfaces;
 using System.Text.RegularExpressions;
 
 namespace Test
@@ -7,12 +6,10 @@ namespace Test
     [TestClass]
     public class CalculateBullsAndCowsTest
     {
-        public IUserInterface UserInterface { get; set; } = new ConsoleHandler();
-        public ICalculator Calculator { get; set; }
+        public ICalculator Calculator { get; set; } = new MooCalculator();
         [TestInitialize]
         public void Init()
         {
-            Calculator = new MooGame(UserInterface);
             Calculator.CreateSecretSequence();
         }
         [TestMethod]

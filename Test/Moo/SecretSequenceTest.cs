@@ -1,17 +1,14 @@
 ﻿using Moo;
-using Moo.Interfaces;
 
 namespace Test
 {
     [TestClass]
     public class SecretSequenceTest
     {
-        public IUserInterface UserInterface { get; set; } = new ConsoleHandler();
-        public ICalculator Calculator { get; set; }
+        public ICalculator Calculator { get; set; } = new MooCalculator();
         [TestInitialize]
         public void Init()
         {
-            Calculator = new MooGame(UserInterface);
             Calculator.CreateSecretSequence();
         }
         [TestMethod]

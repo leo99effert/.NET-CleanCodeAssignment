@@ -14,11 +14,11 @@ namespace Moo
             string gameChosenByPlayer = PickGame();
             if (gameChosenByPlayer is "moo")
             {
-                return new MooGame(UserInterface);
+                return new Game(UserInterface, new MooCalculator());
             }
             if (gameChosenByPlayer is "mastermind")
             {
-                return new MasterMindGame(UserInterface);
+                return new Game(UserInterface, new MasterMindCalculator());
             }
             throw new Exception("Game not found");
         }

@@ -1,14 +1,12 @@
-﻿using Moo.Interfaces;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Moo
 {
-    public class MasterMindGame : Game, ICalculator
+    public class MasterMindCalculator : ICalculator
     {
         public string SecretSequence { get; set; }
         public string Guess { get; set; }
 
-        public MasterMindGame(IUserInterface userInterface) : base(userInterface) { }
         public void CreateSecretSequence()
         {
             string newSecretSequence = "";
