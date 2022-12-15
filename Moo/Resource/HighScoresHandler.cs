@@ -47,12 +47,12 @@
 
         public string CreateScoreBoard()
         {
-            string consoleOutput = "Player   games average\n";
+            string output = "Player   games average\n";
             foreach (PlayerData playerData in AllPlayers)
             {
-                consoleOutput += string.Format("{0,-9}{1,5:D}{2,9:F2}\n", playerData.Name, playerData.GamesPlayed, playerData.Average());
+                output += string.Format("{0,-9}{1,5:D}{2,9:F2}\n", playerData.Name, playerData.GamesPlayed, playerData.Average());
             }
-            return consoleOutput;
+            return output;
         }
     }
 }
