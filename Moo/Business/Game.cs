@@ -23,7 +23,7 @@ namespace Moo
             Calculator.CreateSecretSequence();
             UserInterface.Output("New game:\n");
             //comment out or remove next line to play real games!
-            UserInterface.Output("For practice, number is: " + Calculator.SecretSequence + "\n");
+            //UserInterface.Output("For practice, number is: " + Calculator.SecretSequence + "\n");
         }
         public void RunGameLoop()
         {
@@ -34,7 +34,8 @@ namespace Moo
                 Calculator.Guess = UserInterface.Input();
                 Player.TotalGuesses++;
                 UserInterface.Output(Calculator.Guess + "\n");
-                currentBullsAndCows = Calculator.GetResult();
+                Calculator.UpdateResult();
+                currentBullsAndCows = string.Concat("BBBB".AsSpan(0, Calculator.Result.Bulls), ",", "CCCC".AsSpan(0, Calculator.Result.Cows));
                 UserInterface.Output(currentBullsAndCows + "\n");
             }
         }

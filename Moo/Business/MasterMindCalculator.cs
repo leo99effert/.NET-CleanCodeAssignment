@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+﻿using Moo.Business;
 
 namespace Moo
 {
@@ -6,6 +6,7 @@ namespace Moo
     {
         public string SecretSequence { get; set; }
         public string Guess { get; set; }
+        public Result Result { get; set; } = new Result();
 
         public void CreateSecretSequence()
         {
@@ -19,20 +20,20 @@ namespace Moo
             SecretSequence = newSecretSequence;
         }
 
-        public string GetResult()
+        public void UpdateResult()
         {
+            Result.Bulls = 0;
+            Result.Cows = 0;
             Guess = (Guess + "    ").Substring(0, 4).ToUpper();
             char[] secret = SecretSequence.ToCharArray();
-            string result = "";
             for (int i = 0; i < Guess.Length; i++)
             {
                 if (Guess[i] == secret[i])
                 {
-                    result += "B";
+                    Result.Bulls++;
                     secret[i] = 'X'; // To avoid being counted as Cow
                 }
             }
-            result += ",";
             string checkedColors = "";
             for (int i = 0; i < Guess.Length; i++)
             {
@@ -54,14 +55,12 @@ namespace Moo
                     }
                     while (thisCharInGuess > 0 && thisCharInSecret > 0)
                     {
-                        result += "C";
+                        Result.Cows++;
                         thisCharInSecret--;
                         thisCharInGuess--;
                     }
                 }
             }
-            result = Regex.Replace(result, "\\s+", "");
-            return result;
         }
     }
 }

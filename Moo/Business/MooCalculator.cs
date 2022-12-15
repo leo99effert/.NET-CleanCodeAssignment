@@ -1,9 +1,12 @@
-﻿namespace Moo
+﻿using Moo.Business;
+
+namespace Moo
 {
     public class MooCalculator : ICalculator
     {
         public string SecretSequence { get; set; }
         public string Guess { get; set; }
+        public Result Result { get; set; } = new Result();
 
         public void CreateSecretSequence()
         {
@@ -21,11 +24,10 @@
             }
             SecretSequence = newSecretSequence;
         }
-
-        public string GetResult()
+        public void UpdateResult()
         {
-            int bulls = 0;
-            int cows = 0;
+            Result.Bulls = 0;
+            Result.Cows = 0;
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4 && j < Guess.Length; j++)
@@ -34,16 +36,15 @@
                     {
                         if (i == j)
                         {
-                            bulls++;
+                            Result.Bulls++;
                         }
                         else
                         {
-                            cows++;
+                            Result.Cows++;
                         }
                     }
                 }
             }
-            return string.Concat("BBBB".AsSpan(0, bulls), ",", "CCCC".AsSpan(0, cows));
         }
     }
 }
