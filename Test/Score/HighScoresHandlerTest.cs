@@ -5,7 +5,7 @@ namespace Test
     [TestClass]
     public class HighScoresHandlerTest
     {
-        public HighScoresHandler HighScoresHandler { get; set; } = new();
+        public HighScoresHandler HighScoresHandler { get; set; } = new(new PlayerData("TestPlayer"));
 
         private readonly List<PlayerData> _playerDatasMock = new()
         {
@@ -25,7 +25,7 @@ namespace Test
         [TestInitialize]
         public void Init()
         {
-            HighScoresHandler.PlayerDatas = _playerDatasMock;
+            HighScoresHandler.AllPlayers = _playerDatasMock;
             _playerDatasMock[3].GamesPlayed = 2;
             _playerDatasMock[4].GamesPlayed = 3;
         }
@@ -33,7 +33,7 @@ namespace Test
         [TestMethod]
         public void PlayerDatasToConsoleString()
         {
-            Assert.AreEqual(_consoleStringMock, HighScoresHandler.CreateConsoleString());
+            Assert.AreEqual(_consoleStringMock, HighScoresHandler.CreateScoreBoard());
         }
     }
 }
