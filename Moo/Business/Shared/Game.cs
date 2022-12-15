@@ -20,10 +20,10 @@ namespace Moo
         public void EndAndSave()
         {
             UserInterface.Output("Correct, it took " + Player.TotalGuesses + " guesses\n");
-            HighScoresHandler highScoresHandler = new();
-            highScoresHandler.WriteToTextFile(Player);
+            HighScoresHandler highScoresHandler = new(Player);
+            highScoresHandler.WriteToTextFile();
             highScoresHandler.ReadTextFile();
-            UserInterface.Output(highScoresHandler.CreateConsoleString());
+            UserInterface.Output(highScoresHandler.CreateScoreBoard());
         }
         public bool AskForNewGame()
         {

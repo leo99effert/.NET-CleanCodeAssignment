@@ -2,12 +2,17 @@
 {
     public class HighScoresHandler
     {
-        public List<PlayerData> PlayerDatas { get; set; } = new();
+        public PlayerData CurrentPlayer { get; set; }
+        public List<PlayerData> AllPlayers { get; set; } = new();
+        public HighScoresHandler(PlayerData currentPlayer)
+        {
+            CurrentPlayer = currentPlayer;
+        }
 
-        public void WriteToTextFile(PlayerData player)
+        public void WriteToTextFile()
         {
             StreamWriter output = new("result.txt", append: true);
-            output.WriteLine(player.Name + "#&#" + player.TotalGuesses);
+            output.WriteLine(CurrentPlayer.Name + "#&#" + CurrentPlayer.TotalGuesses);
             output.Close();
         }
 
@@ -20,7 +25,7 @@
                 ReadLine(newLine);
             }
             textFile.Close();
-            PlayerDatas = PlayerDatas.OrderBy(p => p.Average()).ToList();
+            AllPlayers = AllPlayers.OrderBy(p => p.Average()).ToList();
         }
 
         public void ReadLine(string newLine)
@@ -29,21 +34,21 @@
             string name = nameAndScore[0];
             int guesses = Convert.ToInt32(nameAndScore[1]);
             PlayerData playerData = new(name, guesses);
-            int pos = PlayerDatas.IndexOf(playerData);
+            int pos = AllPlayers.IndexOf(playerData);
             if (pos < 0)
             {
-                PlayerDatas.Add(playerData);
+                AllPlayers.Add(playerData);
             }
             else
             {
-                PlayerDatas[pos].Update(guesses);
+                AllPlayers[pos].Update(guesses);
             }
         }
 
-        public string CreateConsoleString()
+        public string CreateScoreBoard()
         {
             string consoleOutput = "Player   games average\n";
-            foreach (PlayerData playerData in PlayerDatas)
+            foreach (PlayerData playerData in AllPlayers)
             {
                 consoleOutput += string.Format("{0,-9}{1,5:D}{2,9:F2}\n", playerData.Name, playerData.GamesPlayed, playerData.Average());
             }
