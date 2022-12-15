@@ -2,9 +2,12 @@
 {
     public class MooCalculator : ICalculator
     {
-        public string CreateSecretSequence()
+        public string SecretSequence { get; set; }
+        public string Guess { get; set; }
+
+        public void CreateSecretSequence()
         {
-            string secretSequence = "";
+            string newSecretSequence = "";
             Random NumberGenerator = new();
             int random;
             for (int i = 0; i < 4; i++)
@@ -13,21 +16,21 @@
                 {
                     random = NumberGenerator.Next(10);
                 }
-                while (secretSequence.Contains(random.ToString()));
-                secretSequence += random;
+                while (newSecretSequence.Contains(random.ToString()));
+                newSecretSequence += random;
             }
-            return secretSequence;
+            SecretSequence = newSecretSequence;
         }
 
-        public string GetResult(string secretSequence, string guess)
+        public string GetResult()
         {
             int bulls = 0;
             int cows = 0;
             for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < 4 && j < guess.Length; j++)
+                for (int j = 0; j < 4 && j < Guess.Length; j++)
                 {
-                    if (secretSequence[i] == guess[j])
+                    if (SecretSequence[i] == Guess[j])
                     {
                         if (i == j)
                         {
